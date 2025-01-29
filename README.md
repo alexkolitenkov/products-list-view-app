@@ -1,5 +1,3 @@
-# FILE: /products-list-view-app/README.md
-
 # Products List View App
 
 This is a React application that allows users to manage a list of products. Users can add, edit, and remove products, as well as view detailed information about each product. The application includes modals for adding and editing products, and it ensures that no empty product details can be submitted.
