@@ -26,7 +26,7 @@ const EditProductModal: FC<EditProductModalProps> = ({ isOpen, product, onUpdate
     const [comments, setComments] = useState<IComments[]>(product.comments);
     const dispatch = useAppDispatch();
 
-    const handleUpdate = (e: any) => {
+    const handleUpdate = async (e: any) => {
         e.preventDefault();
         if (!name || !count || !imageUrl || !size.width || !size.height || !weight) {
             alert('Please fill in all fields.');
@@ -42,10 +42,22 @@ const EditProductModal: FC<EditProductModalProps> = ({ isOpen, product, onUpdate
             weight,
             comments,
         };
-
-        dispatch(editProduct(updatedProduct));
-        onUpdate();
-        onClose();
+                
+        try {
+            await fetch(`http://localhost:3001/products/${product.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedProduct)
+            })
+            dispatch(editProduct(updatedProduct));
+            onUpdate();
+        } catch (e: any) {
+            console.error('Failed to update a product:', e)
+        } finally {
+            onClose();
+        }
     };
 
     const handleCommentChange = (index: number, value: string) => {
@@ -55,7 +67,7 @@ const EditProductModal: FC<EditProductModalProps> = ({ isOpen, product, onUpdate
         setComments(newComments);
     };
 
-    const handleAddComment = () => {
+    const handleAddComment = () => {    
         setComments([
             ...comments, 
             { 

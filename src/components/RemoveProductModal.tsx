@@ -18,10 +18,21 @@ interface RemoveProductModalProps {
 const RemoveProductModal: FC<RemoveProductModalProps> = ({ isOpen, onClose, onConfirm, product }) => {
     const dispatch = useAppDispatch();
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         if (product) {
-            dispatch(removeProduct(product.id));
-            onConfirm();
+            try {
+                await fetch(`http://localhost:3001/products/${product.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        
+                    }
+                })
+                dispatch(removeProduct(product.id));
+                onConfirm();
+            } catch (e: any) {
+                console.error('Error deleting product', e);
+            }
         }
     };
 

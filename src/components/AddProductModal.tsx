@@ -23,7 +23,7 @@ const AddProductModal: FC<AddProductModalProps> = ({ isOpen, onRequestClose }) =
     const dispatch = useAppDispatch();
     const productId = Date.now();
 
-    const handleAddProduct = () => {
+    const handleAddProduct = async () => {
         if (!name || count <= 0 || !imageUrl || size.width <= 0 || size.height <= 0 || !weight) {
             alert('Please fill in all fields correctly.');
             return;
@@ -39,15 +39,26 @@ const AddProductModal: FC<AddProductModalProps> = ({ isOpen, onRequestClose }) =
             comments,
         };
 
-        dispatch(addProduct(newProduct));
-        
-        setName('');
-        setCount(0);
-        setImageUrl('');
-        setSize({ width: 0, height: 0 });
-        setWeight('');
-        setComments([]);
-        
+        try {
+            await fetch('http://localhost:3001/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newProduct)
+            })
+
+            dispatch(addProduct(newProduct));
+        } catch (e: any) {
+            console.error('Failed to save product', e);
+        } finally {
+            setName('');
+            setCount(0);
+            setImageUrl('');
+            setSize({ width: 0, height: 0 });
+            setWeight('');
+            setComments([]);
+        }
         onRequestClose();
     };
 

@@ -2,8 +2,8 @@
   "products": [
     {
       "id": 1,
-      "name": "A Product",
-      "count": 200,
+      "name": "B prod",
+      "count": 301,
       "imageUrl": "https://via.placeholder.com/150",
       "size": {
         "width": 100,
@@ -12,14 +12,14 @@
       "weight": "200g",
       "comments": [
         {
-          "id": "1",
+          "id": 3,
           "productId": 1,
           "description": "some text here",
           "date": "14:00 22.08.2021"
         },
         {
-          "id": "2",
-          "productId": 2,
+          "id": 2,
+          "productId": 1,
           "description": "some text here",
           "date": "14:00 22.08.2021"
         }
@@ -37,13 +37,13 @@
       "weight": "100g",
       "comments": [
         {
-          "id": "1",
+          "id": 1,
           "productId": 1,
           "description": "goprmegpomer",
           "date": "14:00 22.08.2021"
         },
         {
-          "id": "2",
+          "id": 2,
           "productId": 2,
           "description": "wormgeoprg",
           "date": "14:00 22.08.2021"
